@@ -1,21 +1,16 @@
-const BASE_URL = "http://localhost:8080"; // ajuste se necessário
+const BASE_URL = "http://localhost:8080";
 
 export async function request(endpoint, options = {}) {
-  try {
-    const response = await fetch(BASE_URL + endpoint, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      ...options
-    });
+  const response = await fetch(BASE_URL + endpoint, {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    ...options
+  });
 
-    if (!response.ok) {
-      throw new Error("Erro na API");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Erro na requisição:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error("Erro na API");
   }
+
+  return response.json();
 }
