@@ -4,6 +4,8 @@ import { renderStatus } from "./ui/statusUI.js";
 import { enviarImagem, listarAnalises } from "./services/analiseService.js";
 import { renderResultado, renderLista } from "./ui/analiseUI.js";
 
+
+console.log("JS carregado")
 async function init() {
   try {
     const status = await getStatus();
@@ -25,6 +27,7 @@ function toBase64(file) {
 }
 
 window.handleUpload = async function () {
+    console.log("clique")
   const file = document.getElementById("fileInput").files[0];
 
   if (!file) {
