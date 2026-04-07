@@ -4,11 +4,12 @@ export async function enviarImagem(base64) {
   const result = await request("/api/analisar", {
     method: "POST",
     body: JSON.stringify({
-      imagemBase64: base64
+      imagemBase64: base64,
+      formato: "jpeg"
     })
   });
 
-  return result.data;
+  return result.dados;
 }
 
 export async function listarAnalises() {
