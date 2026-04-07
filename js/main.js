@@ -4,19 +4,17 @@ import { renderStatus } from "./ui/statusUI.js";
 import { enviarImagem, listarAnalises } from "./services/analiseService.js";
 import { renderResultado, renderLista } from "./ui/analiseUI.js";
 
-// STATUS
 async function init() {
   try {
     const status = await getStatus();
     renderStatus(status);
   } catch {
-    console.log("Erro status");
+    document.getElementById("status").innerText = "Erro ao carregar status";
   }
 }
 
 init();
 
-// CONVERTER IMAGEM → BASE64
 function toBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -26,7 +24,6 @@ function toBase64(file) {
   });
 }
 
-// UPLOAD
 window.handleUpload = async function () {
   const file = document.getElementById("fileInput").files[0];
 
@@ -35,22 +32,39 @@ window.handleUpload = async function () {
     return;
   }
 
-  const base64 = await toBase64(file);
+  const resultadoDiv = document.getElementById("resultado");
+
+  resultadoDiv.innerHTML = "";
+
+  const preview = document.createElement("img");
+  preview.src = URL.createObjectURL(file);
+  preview.style.width = "200px";
+  preview.style.display = "block";
+  preview.style.marginBottom = "10px";
+
+  resultadoDiv.appendChild(preview);
+
+  const loading = document.createElement("p");
+  loading.innerText = "Analisando imagem...";
+  resultadoDiv.appendChild(loading);
 
   try {
+    const base64 = await toBase64(file);
     const result = await enviarImagem(base64);
+
     renderResultado(result);
-  } catch (e) {
-    console.error(e);
+
+  } catch (error) {
+    console.error(error);
+    resultadoDiv.innerHTML = "Erro ao analisar imagem";
   }
 };
 
-// LISTAR
 window.carregarLista = async function () {
   try {
     const lista = await listarAnalises();
     renderLista(lista);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 };
