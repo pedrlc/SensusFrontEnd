@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Sensus - Análise</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-  <h1>Sistema de Análise</h1>
-
-  <div id="status">Carregando status...</div>
-
-  <hr>
-
-  <input type="file" id="fileInput">
-  <button onclick="handleUpload()">Analisar</button>
-
-  <div id="resultado"></div>
-
-  <hr>
-
-  <button onclick="carregarLista()">Ver histórico</button>
-  <div id="lista"></div>
-
-  <script type="module" src="js/main.js"></script>
-</body>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensus</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/app/main.tsx"></script>
+  </body>
 </html>
